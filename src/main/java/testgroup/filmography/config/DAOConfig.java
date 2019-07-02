@@ -16,7 +16,7 @@ public class DAOConfig {
         EmbeddedDatabaseBuilder builder = new EmbeddedDatabaseBuilder();
         EmbeddedDatabase db = builder
                 .setType(EmbeddedDatabaseType.H2)
-                .addScript("db/sql/create-db.sql")
+                //.addScript("db/sql/create-db.sql")
                 .build();
         return db;
     }
