@@ -1,8 +1,10 @@
 package testgroup.filmography.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import testgroup.filmography.model.Film;
 
+import javax.sql.DataSource;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -10,7 +12,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class FilmDAOImpl implements FilmDAO {
     private static final AtomicInteger AUTO_ID = new AtomicInteger(1);
     private static Map<Integer, Film> films = new HashMap<>();
-
+    @Autowired
+    private DataSource ds;
     static {
         Film film1 = new Film();
         film1.setId(AUTO_ID.getAndIncrement());
@@ -20,11 +23,10 @@ public class FilmDAOImpl implements FilmDAO {
         film1.setWatched(true);
         film1.setLanguage("UA");
         films.put(film1.getId(), film1);
-
-        // + film2, film3, film4, ...
     }
     @Override
     public List<Film> allFilms() {
+        System.out.println("ds is"+ds);
         return new ArrayList<>(films.values());
     }
 
