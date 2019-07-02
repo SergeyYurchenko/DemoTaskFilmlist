@@ -26,7 +26,7 @@ public class FilmDAOImpl implements FilmDAO {
     }
     @Override
     public List<Film> allFilms() {
-        System.out.println("ds is"+ds);
+        //System.out.println("ds is"+ds);
         return new ArrayList<>(films.values());
     }
 
