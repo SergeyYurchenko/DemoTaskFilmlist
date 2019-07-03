@@ -30,8 +30,8 @@
             <td>${film.title}</td>
             <td>${film.year}</td>
             <td>${film.genre}</td>
-            <td>${film.language}</td>
             <td>${film.watched}</td>
+            <td>${film.language}</td>
             <td>
                 <a href="/edit/${film.id}">edit</a>
                 <a href="/delete/${film.id}">delete</a>
@@ -40,8 +40,10 @@
     </c:forEach>
 </table>
 
-<h2>Add</h2>
+<h2>Add and Search</h2>
 <c:url value="/add" var="add"/>
 <a href="${add}">Add new film</a>
+<c:url value="/search" var="search"/>
+<a href="${add}">Search Film</a>
 </body>
 </html>
