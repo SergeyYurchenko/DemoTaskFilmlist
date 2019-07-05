@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import testgroup.filmography.exceptions.FilmException;
 import testgroup.filmography.model.Film;
 import testgroup.filmography.service.FilmService;
 
@@ -31,15 +32,6 @@ public class FilmController extends RuntimeException {
         return modelAndView;
     }
 
-   /* @RequestMapping(method = RequestMethod.GET)
-    public ModelAndView search() {
-        List<Film> films = filmService.allFilms();
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("films");
-        modelAndView.addObject("filmsList", films);
-        return modelAndView;
-    }*/
-
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
     public ModelAndView editPage(@PathVariable("id") int id) {
         Film film = filmService.getById(id);
@@ -57,14 +49,14 @@ public class FilmController extends RuntimeException {
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.GET)
+    @RequestMapping(value = "/add-page", method = RequestMethod.GET)
     public ModelAndView addPage() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editPage");
         return modelAndView;
     }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add-operation", method = RequestMethod.POST)
     public ModelAndView addFilm(@ModelAttribute("film") Film film) {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/");
@@ -75,22 +67,38 @@ public class FilmController extends RuntimeException {
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
     public ModelAndView deleteFilm(@PathVariable("id") int id)  {
         ModelAndView modelAndView = new ModelAndView();
+
         modelAndView.setViewName("redirect:/");
         Film film = filmService.getById(id);
+        System.out.println("Film controller used");
         if(film==null){
-            nullIDFilm();
+            FilmException filmException = new FilmException();
+            filmException.nullIDFilm();
+            System.out.println("Film is null");
+
         }
         filmService.delete(film);
         return modelAndView;
 
     }
-    @ResponseStatus(value=HttpStatus.BAD_REQUEST,
-            reason="This ID Film is not found to delete")
-    @ExceptionHandler(IllegalArgumentException.class)
-    public void nullIDFilm(){
 
+    @RequestMapping(value = "/search-page", method = RequestMethod.GET)
+    public ModelAndView search() {
+        System.out.println("Controller SEARCH started");
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("searchFilms");
+        return modelAndView;
     }
 
+    @RequestMapping(value="/search-film", method = RequestMethod.GET)
+    public ModelAndView searchFilm(String searchPart) {
+        List<Film> films = filmService.searchFilms(searchPart);
+        System.out.println("I'm working"+ searchPart);
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("redirect:/");
+        modelAndView.addObject("filmsList", films);
+        return modelAndView;
+    }
 
 
 

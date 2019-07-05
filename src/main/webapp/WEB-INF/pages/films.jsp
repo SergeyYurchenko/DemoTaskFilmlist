@@ -41,9 +41,9 @@
 </table>
 
 <h2>Add and Search</h2>
-<c:url value="/add" var="add"/>
+<c:url value="/add-page" var="add"/>
 <a href="${add}">Add new film</a>
-<c:url value="/search" var="search"/>
-<a href="${add}">Search Film</a>
+<c:url value="/search-page" var="search"/>
+<a href="${search}">Search Film</a>
 </body>
 </html>

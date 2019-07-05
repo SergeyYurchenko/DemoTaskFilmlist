@@ -18,7 +18,7 @@
 </head>
 <body>
 <c:if test="${empty film.title}">
-    <c:url value="/add" var="var"/>
+    <c:url value="/add-operation" var="var"/>
 </c:if>
 <c:if test="${!empty film.title}">
     <c:url value="/edit" var="var"/>

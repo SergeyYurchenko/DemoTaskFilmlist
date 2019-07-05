@@ -24,7 +24,7 @@ public class FilmDAOImpl implements FilmDAO {
 
     public List<Film> allFilms() {
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Film").list();
+        return session.createQuery("from Film ").list();
     }
 
 
@@ -51,6 +51,11 @@ public class FilmDAOImpl implements FilmDAO {
     public Film getById(int id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Film.class, id);
+    }
+
+    public List<Film> searchFilms(String searchPart) {
+        Session session = sessionFactory.getCurrentSession();
+        return session.createQuery("from Film where title like (:searchPart)").list();
     }
 
 }

@@ -19,32 +19,39 @@ public class FilmServiceImpl implements FilmService {
     }
 
     @Transactional
+    @Override
     public List<Film> allFilms() {
         return filmDAO.allFilms();
     }
 
     @Transactional
+    @Override
     public void add(Film film) {
         filmDAO.add(film);
     }
 
     @Transactional
+    @Override
     public void delete(Film film) {
         filmDAO.delete(film);
     }
 
     @Transactional
+    @Override
     public void edit(Film film) {
         filmDAO.edit(film);
     }
 
     @Transactional
+    @Override
     public Film getById(int id) {
         return filmDAO.getById(id);
     }
 
-   /*Override
-    public List<Film> search (String filmName,List<Film> list){
-       return filmDAO.search(filmName,list);
-    }*/
+    @Transactional
+    @Override
+    public List<Film> searchFilms(String searchPart) {
+        return filmDAO.searchFilms(searchPart);
+    }
+
 }
