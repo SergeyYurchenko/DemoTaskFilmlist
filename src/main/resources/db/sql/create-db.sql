@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS films;
+
 
 CREATE TABLE films
 (

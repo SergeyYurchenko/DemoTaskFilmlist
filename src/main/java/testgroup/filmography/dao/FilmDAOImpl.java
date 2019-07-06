@@ -1,5 +1,6 @@
 package testgroup.filmography.dao;
 
+import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,12 @@ public class FilmDAOImpl implements FilmDAO {
         this.sessionFactory = sessionFactory;
     }
 
+    private static final Logger log = Logger.getLogger(Film.class);
     public List<Film> allFilms() {
         Session session = sessionFactory.getCurrentSession();
+        log.error("method allFilms in class FilmDAOImpl get error");
         return session.createQuery("from Film ").list();
+
     }
 
 
@@ -54,8 +58,11 @@ public class FilmDAOImpl implements FilmDAO {
     }
 
     public List<Film> searchFilms(String searchPart) {
+        log.error("method searchFilms in class FilmDAOImpl get error");
         Session session = sessionFactory.getCurrentSession();
-        return session.createQuery("from Film where title like (:searchPart)").list();
+        System.out.println("search film method started");
+       // return session.createQuery("from Film where title like (:searchPart)").list();
+        return session.createQuery("from Film where title like ('%" +searchPart + "%')").list();
     }
 
 }
