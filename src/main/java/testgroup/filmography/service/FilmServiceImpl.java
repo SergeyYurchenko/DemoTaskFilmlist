@@ -8,6 +8,10 @@ import testgroup.filmography.model.Film;
 
 import java.util.List;
 
+/**
+ * @author s.yurchenko
+ */
+
 @Service
 public class FilmServiceImpl implements FilmService {
 

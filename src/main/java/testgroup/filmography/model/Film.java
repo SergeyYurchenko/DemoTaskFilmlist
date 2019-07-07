@@ -1,20 +1,18 @@
 package testgroup.filmography.model;
 
-
-
-
 import org.apache.log4j.Logger;
-
 
 import javax.persistence.*;
 
-
+/**
+ * Class film creates a bunch with object in java and information in table
+ * @author s.yurchenko
+ */
 
 @Entity
 @Table(name = "films")
 public class Film {
     private static final Logger log = Logger.getLogger(Film.class);
-
 
     @Id
     @Column(name = "id")

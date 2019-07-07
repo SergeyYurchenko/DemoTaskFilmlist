@@ -15,15 +15,15 @@
 <body class="w3-light-grey">
 <meta charset = "utf-8">
 <h2 class="w3-container w3-blue-grey w3-opacity w3-center" >Films</h2>
-<table id="main-table" align="center" width="70%">
+<table id="main-table" align="center" width="70%" border="1">
     <tr>
-        <th width="5%">id</th>
-        <th width="=30%">title</th>
-        <th width="10%">year</th>
-        <th width="20%">genre</th>
-        <th width="10%">watched</th>
-        <th width="5%">language</th>
-        <th width="15%">action</th>
+        <th width="5%">Id</th>
+        <th width="=30%">Title</th>
+        <th width="10%">Year</th>
+        <th width="20%">Genre</th>
+        <th width="10%">Watched</th>
+        <th width="5%">Language</th>
+        <th width="15%">Action</th>
     </tr>
     <c:forEach var="film" items="${filmsList}">
         <tr align="center">
@@ -46,6 +46,7 @@
 <div align="center ">
 <img src="https://image.flaticon.com/icons/svg/109/109433.svg" onclick="location.href='add-page'" width="5%" class="w3-cell-middle" >
 <img src="https://www.flaticon.com/premium-icon/icons/svg/954/954591.svg" onclick="location.href='search-page'" width="5%" class="w3-cell-middle" >
+    <img src="https://image.flaticon.com/icons/svg/138/138849.svg" onclick="location.href='/filmography_war/'" width="5%" class="w3-cell-middle" >
 </div>
 </body>
 </html>

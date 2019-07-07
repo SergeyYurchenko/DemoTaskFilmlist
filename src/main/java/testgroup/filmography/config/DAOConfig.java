@@ -10,14 +10,16 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-
 import java.util.Properties;
 
 @Configuration
 @EnableTransactionManagement
 public class DAOConfig {
 
-
+    /**
+     * DAOConfig class with configuration for database
+     * @author s.yurchenko
+     */
 
     @Bean
     public DataSource dataSource() {
@@ -34,12 +36,11 @@ public class DAOConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan( "testgroup.filmography.model");
+        sessionFactory.setPackagesToScan("testgroup.filmography.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
-
         return sessionFactory;
-
     }
+
     @Bean
     public PlatformTransactionManager hibernateTransactionManager() {
         HibernateTransactionManager transactionManager
@@ -52,7 +53,6 @@ public class DAOConfig {
         Properties hibernateProperties = new Properties();
         hibernateProperties.setProperty(
                 "hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-
         return hibernateProperties;
     }
 }
