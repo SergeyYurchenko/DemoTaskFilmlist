@@ -10,6 +10,6 @@ public interface FilmDAO {
     void add(Film film);
     void delete(Film film);
     void edit(Film film);
-    /*List<Film> search (String filmName,List<Film> list);*/
+
     Film getById(int id);
 }

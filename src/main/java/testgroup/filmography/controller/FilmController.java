@@ -5,11 +5,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import testgroup.filmography.exceptions.FilmException;
+import testgroup.filmography.exceptions.FilmNotExistsException;
 import testgroup.filmography.model.Film;
 import testgroup.filmography.service.FilmService;
 
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 
@@ -22,24 +23,25 @@ public class FilmController {
     public void setFilmService(FilmService filmService)  {
         this.filmService = filmService;
     }
-    FilmException filmException = new FilmException();
+
     private static final Logger log = Logger.getLogger(Film.class);
+
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView allFilms() {
         List<Film> films = filmService.allFilms();
         ModelAndView modelAndView = new ModelAndView();
-        log.error("method allFilms in class FilmController get error");
         modelAndView.setViewName("films");
         modelAndView.addObject("filmsList", films);
         return modelAndView;
     }
 
     @RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
-    public ModelAndView editPage(@PathVariable("id") int id) {
+    public ModelAndView editPage(@PathVariable("id") Integer id) throws FilmNotExistsException {
         Film film = filmService.getById(id);
-        if(film==null){
-            filmException.nullIDFilm();}
-        log.error("method editPage in class FilmController get error");
+        if (film == null) {
+            throw new FilmNotExistsException(
+                    String.format("Film with id %s not exists", id));
+        }
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editPage");
         modelAndView.addObject("film", film);
@@ -49,7 +51,6 @@ public class FilmController {
     @RequestMapping(value = "/edit", method = RequestMethod.POST)
     public ModelAndView editFilm(@ModelAttribute("film") Film film) {
         ModelAndView modelAndView = new ModelAndView();
-        log.error("method editFilm in class FilmController get error");
         modelAndView.setViewName("redirect:/");
         filmService.edit(film);
         return modelAndView;
@@ -57,7 +58,6 @@ public class FilmController {
 
     @RequestMapping(value = "/add-page", method = RequestMethod.GET)
     public ModelAndView addPage() {
-        log.error("method addPage in class FilmController get error");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("editPage");
         return modelAndView;
@@ -66,33 +66,26 @@ public class FilmController {
     @RequestMapping(value = "/add-operation", method = RequestMethod.POST)
     public ModelAndView addFilm(@ModelAttribute("film") Film film) {
         ModelAndView modelAndView = new ModelAndView();
-        log.error("method addFilm in class FilmController get error");
         modelAndView.setViewName("redirect:/");
         filmService.add(film);
         return modelAndView;
     }
 
     @RequestMapping(value="/delete/{id}", method = RequestMethod.GET)
-    public ModelAndView deleteFilm(@PathVariable("id") int id)  {
+    public ModelAndView deleteFilm(@PathVariable("id") int id) throws FilmNotExistsException {
         ModelAndView modelAndView = new ModelAndView();
-        log.error("method deleteFilm in class FilmController get error");
         modelAndView.setViewName("redirect:/");
         Film film = filmService.getById(id);
-        System.out.println("Film controller used");
-        if(film==null){
-            filmException.nullIDFilm();
-            System.out.println("Film is null");
-
+        if (film == null) {
+            throw new FilmNotExistsException(
+                    String.format("Film with id %s not exists", id));
         }
         filmService.delete(film);
         return modelAndView;
-
     }
 
     @RequestMapping(value = "/search-page", method = RequestMethod.GET)
     public ModelAndView search() {
-        log.error("method deleteFilm in class FilmController get error");
-        System.out.println("Controller SEARCH started");
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("searchFilms");
         return modelAndView;
@@ -101,8 +94,6 @@ public class FilmController {
     @RequestMapping(value="/search-film", method = RequestMethod.GET)
     public ModelAndView searchFilm(String searchPart) {
         List<Film> films = filmService.searchFilms(searchPart);
-        log.error("method searchFilm in class FilmController get error");
-        System.out.println("I'm working"+ searchPart);
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("films");
         modelAndView.addObject("filmsList", films);

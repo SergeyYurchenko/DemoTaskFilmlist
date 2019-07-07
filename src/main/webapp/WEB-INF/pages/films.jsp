@@ -9,49 +9,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <link href="<c:url value="/res/style.css"/>" rel="stylesheet" type="text/css"/>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <title>FILMS</title>
 </head>
-<body>
+<body class="w3-light-grey">
 <meta charset = "utf-8">
-<h2 align="center">Films</h2>
-<table id="main-table" align="center">
+<h2 class="w3-container w3-blue-grey w3-opacity w3-center" >Films</h2>
+<table id="main-table" align="center" width="70%">
     <tr>
-        <th>id</th>
-        <th>title</th>
-        <th>year</th>
-        <th>genre</th>
-        <th>watched</th>
-        <th>language</th>
-        <th>action</th>
+        <th width="5%">id</th>
+        <th width="=30%">title</th>
+        <th width="10%">year</th>
+        <th width="20%">genre</th>
+        <th width="10%">watched</th>
+        <th width="5%">language</th>
+        <th width="15%">action</th>
     </tr>
     <c:forEach var="film" items="${filmsList}">
-        <tr>
-            <td>${film.id}</td>
-            <td>${film.title}</td>
-            <td>${film.year}</td>
-            <td>${film.genre}</td>
-            <td>${film.watched}</td>
-            <td>${film.language}</td>
-            <td>
+        <tr align="center">
+            <td width="5%" >${film.id}</td>
+            <td width="=30%">${film.title}</td>
+            <td width="10%">${film.year}</td>
+            <td width="20%">${film.genre}</td>
+            <td width="10%">${film.watched}</td>
+            <td width="5%">${film.language}</td>
+            <td width="20%" align="center ">
 
-                <form action="/edit/${film.id}">
-                    <button type="submit"> <img src="https://image.flaticon.com/icons/svg/149/149850.svg" style="vertical-align:middle"></button>
-                </form>
-                <form action="/delete/${film.id}">
-                    <button type="submit"> <img src="https://image.flaticon.com/icons/svg/148/148962.svg" style="vertical-align:middle"></button>
-                </form>
-                <a href="/edit/${film.id}">edit</a>
-                <a href="">delete</a>
+                <img src="https://image.flaticon.com/icons/svg/148/148926.svg" onclick="location.href='edit/${film.id}'" width="10%" class="w3-cell-middle" >
+                <img src="https://image.flaticon.com/icons/svg/148/148962.svg" onclick="location.href='delete/${film.id}'" width="10%" class="w3-cell-middle">
             </td>
         </tr>
     </c:forEach>
 </table>
 
-<h2 align="center">Add and Search</h2>
-<c:url value="/add-page" var="add"/>
-<a href="${add}" align=" center">Add new film</a>
-<c:url value="/search-page" var="search"/>
-<a href="${search}" align="center">Search Film</a>
+<h2 class="w3-container w3-blue-grey w3-opacity w3-center" >Add and Search</h2>
+<div align="center ">
+<img src="https://image.flaticon.com/icons/svg/109/109433.svg" onclick="location.href='add-page'" width="5%" class="w3-cell-middle" >
+<img src="https://www.flaticon.com/premium-icon/icons/svg/954/954591.svg" onclick="location.href='search-page'" width="5%" class="w3-cell-middle" >
+</div>
 </body>
 </html>

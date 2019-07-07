@@ -1,7 +1,5 @@
 package testgroup.filmography.config;
 
-import org.springframework.core.env.Environment;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import javax.sql.DataSource;
@@ -19,12 +17,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class DAOConfig {
 
-    private Environment environment;
 
-    @Autowired
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
 
     @Bean
     public DataSource dataSource() {
@@ -41,7 +34,7 @@ public class DAOConfig {
     public LocalSessionFactoryBean sessionFactory() {
         LocalSessionFactoryBean sessionFactory = new LocalSessionFactoryBean();
         sessionFactory.setDataSource(dataSource());
-        sessionFactory.setPackagesToScan( new String("testgroup.filmography.model"));
+        sessionFactory.setPackagesToScan( "testgroup.filmography.model");
         sessionFactory.setHibernateProperties(hibernateProperties());
 
         return sessionFactory;
